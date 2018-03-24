@@ -17,6 +17,7 @@
 package com.example.android.android_me.ui;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,11 +27,15 @@ import android.widget.ImageView;
 
 import com.example.android.android_me.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BodyPartFragment extends Fragment {
 
-    // TODO (3) Create final Strings to store state information about the list of images and list index
+    // COMPLETED (3) Create final Strings to store state information about the list of images and list index
+    private static final String KEY_LIST = "list";
+    private static final String KEY_INDEX = "index";
+    private static final String KEY_NAME = "name";
 
     // Tag for logging
     private static final String TAG = "BodyPartFragment";
@@ -51,6 +56,12 @@ public class BodyPartFragment extends Fragment {
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        if (savedInstanceState != null) {
+            mListIndex = savedInstanceState.getInt(KEY_INDEX);
+            mBodyPartName = savedInstanceState.getString(KEY_NAME);
+            mImageIds = savedInstanceState.getIntegerArrayList(KEY_LIST);
+        }
 
         // Inflate the Android-Me fragment layout
         View rootView = inflater.inflate(R.layout.fragment_body_part, container, false);
@@ -98,5 +109,12 @@ public class BodyPartFragment extends Fragment {
         mBodyPartName = name;
     }
 
-    // TODO (4) Override onSaveInstanceState and save the current state of this fragment
+    // COMPLETED (4) Override onSaveInstanceState and save the current state of this fragment
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(KEY_INDEX, mListIndex);
+        outState.putString(KEY_NAME, mBodyPartName);
+        outState.putIntegerArrayList(KEY_LIST, (ArrayList<Integer>) mImageIds);
+    }
 }
