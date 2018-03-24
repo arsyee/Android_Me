@@ -16,14 +16,17 @@
 
 package com.example.android.android_me.ui;
 
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.android.android_me.BodyPart;
 import com.example.android.android_me.R;
 
 // This activity will display a custom Android image composed of three body parts: head, body, and legs
-public class AndroidMeActivity extends AppCompatActivity {
+public class AndroidMeActivity extends AppCompatActivity implements BodyPart.OnFragmentInteractionListener {
+    private static final String TAG = AndroidMeActivity.class.getSimpleName();
 
     // COMPLETED (1) Create a layout file that displays one body part image named fragment_body_part.xml
         // This layout should contain a single ImageView
@@ -43,5 +46,10 @@ public class AndroidMeActivity extends AppCompatActivity {
         // COMPLETED (5) Create a new BodyPartFragment instance and display it using the FragmentManager
         BodyPart bpHead = new BodyPart();
         getSupportFragmentManager().beginTransaction().add(R.id.c_head, bpHead).commit();
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+        Log.d(TAG, "Why is this called again? Uri: " + uri.toString());
     }
 }
