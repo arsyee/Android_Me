@@ -1,6 +1,8 @@
 package com.example.android.android_me;
 
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,7 @@ import java.util.List;
 
 public class MasterListAdapter extends RecyclerView.Adapter<MasterListAdapter.ViewHolder> {
 
+    private static final String TAG = MasterListAdapter.class.getSimpleName();
     private final List<Integer> mValues;
     private final OnListFragmentInteractionListener mListener;
 
@@ -24,6 +27,11 @@ public class MasterListAdapter extends RecyclerView.Adapter<MasterListAdapter.Vi
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_masterlist, parent, false);
+        GridLayoutManager.LayoutParams lp = (GridLayoutManager.LayoutParams) view.getLayoutParams();
+        Log.d(TAG, String.format("Height: %d", lp.height));
+        lp.height = 180;
+        Log.d(TAG, String.format("Adjusted height: %d", lp.height));
+        view.setLayoutParams(lp);
         return new ViewHolder(view);
     }
 
